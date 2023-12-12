@@ -5,9 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "longnbtkiller.refmap.json",
   "mixins": [
-    "MixinCompoundTag",
     "MixinFriendlyByteBuf",
-    "MixinListTag"
+    "MixinNbtAccounter"
   ],
   "client": [
   ],
