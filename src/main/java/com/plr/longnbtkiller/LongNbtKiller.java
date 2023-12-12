@@ -3,6 +3,7 @@ package com.plr.longnbtkiller;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -32,6 +33,8 @@ public class LongNbtKiller {
     }
 
     public LongNbtKiller() {
+        ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class,
+                () -> new IExtensionPoint.DisplayTest(() -> "", (a, b) -> true));
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CFG);
     }
 
