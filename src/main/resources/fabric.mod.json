@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "longnbtkiller",
+  "version": "${version}",
+  "name": "longnbtkiller",
+  "description": "Prevent minecraft from crashing while encountering deep nbt tags",
+  "authors": [
+    "Tapio"
+  ],
+  "contact": {
+    "sources": "https://github.com/Nova-Committee/LongNbtKiller"
+  },
+  "license": "Nova-Relay-License-1.0",
+  "environment": "*",
+  "mixins": [
+    "longnbtkiller.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": "*"
+  }
+}
