@@ -55,16 +55,16 @@ public abstract class MixinCompoundTag implements ICompoundTag {
                     LongNbtKiller.LOGGER.warn("Tried to read NBT tag with too high complexity, depth: {}", depth);
                     return new CompoundTag();
                 }
-                accounter.accountBits(384L);
+                accounter.accountBytes(384L);
                 Map<String, Tag> map = Maps.newHashMap();
                 byte b0;
                 while ((b0 = readNamedTagType(input, accounter)) != 0) {
                     String s = readNamedTagName(input, accounter);
-                    accounter.accountBits(224 + 16L * s.length());
-                    accounter.accountBits(32); //Forge: 4 extra bytes for the object allocation.
+                    accounter.accountBytes(224 + 16L * s.length());
+                    accounter.accountBytes(32); //Forge: 4 extra bytes for the object allocation.
                     Tag tag = readNamedTagData(TagTypes.getType(b0), s, input, depth + 1, accounter);
                     if (map.put(s, tag) != null) {
-                        accounter.accountBits(288L);
+                        accounter.accountBytes(288L);
                     }
                 }
                 final CompoundTag tag = new CompoundTag();

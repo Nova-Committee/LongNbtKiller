@@ -43,13 +43,13 @@ public abstract class MixinListTag implements IListTag {
                     LongNbtKiller.LOGGER.warn("Tried to read NBT tag with too high complexity, depth: {}", depth);
                     return new ListTag();
                 }
-                accounter.accountBits(296L);
+                accounter.accountBytes(296L);
                 byte b0 = input.readByte();
                 int i = input.readInt();
                 if (b0 == 0 && i > 0) {
                     throw new RuntimeException("Missing type on ListTag");
                 } else {
-                    accounter.accountBits(32L * (long) i);
+                    accounter.accountBytes(32L * (long) i);
                     TagType<?> tagtype = TagTypes.getType(b0);
                     List<Tag> list = Lists.newArrayListWithCapacity(i);
                     for (int j = 0; j < i; ++j) {
