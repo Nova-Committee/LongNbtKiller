@@ -4,8 +4,9 @@
   "package": "com.plr.longnbtkiller.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinCompoundTag",
     "MixinFriendlyByteBuf",
-    "MixinNbtAccounter"
+    "MixinListTag"
   ],
   "injectors": {
     "defaultRequire": 1
