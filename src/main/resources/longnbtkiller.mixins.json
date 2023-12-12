@@ -9,8 +9,6 @@
     "MixinFriendlyByteBuf",
     "MixinListTag"
   ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
   }

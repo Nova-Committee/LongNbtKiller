@@ -3,7 +3,6 @@ package com.plr.longnbtkiller.mixin;
 import com.google.common.collect.Lists;
 import com.plr.longnbtkiller.LongNbtKiller;
 import com.plr.longnbtkiller.api.IListTag;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.*;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,103 +17,50 @@ import java.io.DataInput;
 import java.io.IOException;
 import java.util.List;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-@Mixin(ListTag.class)
+@Mixin(ListNBT.class)
 public abstract class MixinListTag implements IListTag {
-    @Mutable
-    @Shadow
-    @Final
-    public static TagType<ListTag> TYPE;
 
     @Mutable
     @Shadow
     @Final
-    private List<Tag> list;
+    public static INBTType<ListNBT> TYPE;
+
+    @Mutable
+    @Shadow
+    @Final
+    private List<INBT> list;
 
     @Shadow
     private byte type;
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void inject$clinit(CallbackInfo ci) {
-        TYPE = new TagType.VariableSize<>() {
-            public ListTag load(DataInput input, int depth, NbtAccounter accounter) throws IOException {
+        TYPE = new INBTType<ListNBT>() {
+            public ListNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+                tracker.accountBits(296L);
                 if (depth > LongNbtKiller.getMaxDepthForListTag()) {
                     LongNbtKiller.LOGGER.warn("Tried to read NBT tag with too high complexity, depth: {}", depth);
-                    return new ListTag();
-                }
-                accounter.accountBits(296L);
-                byte b0 = input.readByte();
-                int i = input.readInt();
-                if (b0 == 0 && i > 0) {
-                    throw new RuntimeException("Missing type on ListTag");
+                    return new ListNBT();
                 } else {
-                    accounter.accountBits(32L * (long) i);
-                    TagType<?> tagtype = TagTypes.getType(b0);
-                    List<Tag> list = Lists.newArrayListWithCapacity(i);
-                    for (int j = 0; j < i; ++j) {
-                        list.add(tagtype.load(input, depth + 1, accounter));
-                    }
-                    final ListTag tag = new ListTag();
-                    ((IListTag) tag).longnbtkiller$setListAndType(list, b0);
-                    return tag;
-                }
-            }
+                    byte b0 = input.readByte();
+                    int i = input.readInt();
+                    if (b0 == 0 && i > 0) {
+                        throw new RuntimeException("Missing type on ListTag");
+                    } else {
+                        tracker.accountBits(32L * (long) i);
+                        INBTType<?> inbttype = NBTTypes.getType(b0);
+                        List<INBT> list = Lists.newArrayListWithCapacity(i);
 
-            public StreamTagVisitor.ValueResult parse(DataInput input, StreamTagVisitor visitor) throws IOException {
-                TagType<?> tagtype = TagTypes.getType(input.readByte());
-                int i = input.readInt();
-                switch (visitor.visitList(tagtype, i)) {
-                    case HALT:
-                        return StreamTagVisitor.ValueResult.HALT;
-                    case BREAK:
-                        tagtype.skip(input, i);
-                        return visitor.visitContainerEnd();
-                    default:
-                        int j = 0;
-
-                        while (true) {
-                            label45:
-                            {
-                                if (j < i) {
-                                    switch (visitor.visitElement(tagtype, j)) {
-                                        case HALT:
-                                            return StreamTagVisitor.ValueResult.HALT;
-                                        case BREAK:
-                                            tagtype.skip(input);
-                                            break;
-                                        case SKIP:
-                                            tagtype.skip(input);
-                                            break label45;
-                                        default:
-                                            switch (tagtype.parse(input, visitor)) {
-                                                case HALT:
-                                                    return StreamTagVisitor.ValueResult.HALT;
-                                                case BREAK:
-                                                    break;
-                                                default:
-                                                    break label45;
-                                            }
-                                    }
-                                }
-
-                                int k = i - 1 - j;
-                                if (k > 0) {
-                                    tagtype.skip(input, k);
-                                }
-
-                                return visitor.visitContainerEnd();
-                            }
-
-                            ++j;
+                        for (int j = 0; j < i; ++j) {
+                            list.add(inbttype.load(input, depth + 1, tracker));
                         }
-                }
-            }
 
-            public void skip(DataInput input) throws IOException {
-                TagType<?> tagtype = TagTypes.getType(input.readByte());
-                int i = input.readInt();
-                tagtype.skip(input, i);
+                        final ListNBT tag = new ListNBT();
+                        ((IListTag) tag).longnbtkiller$setListAndType(list, b0);
+                        return tag;
+                    }
+                }
             }
 
             public String getName() {
@@ -128,7 +74,7 @@ public abstract class MixinListTag implements IListTag {
     }
 
     @Override
-    public void longnbtkiller$setListAndType(List<Tag> list, byte type) {
+    public void longnbtkiller$setListAndType(List<INBT> list, byte type) {
         this.list = list;
         this.type = type;
     }

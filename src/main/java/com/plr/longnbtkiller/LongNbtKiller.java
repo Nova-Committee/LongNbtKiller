@@ -1,14 +1,14 @@
 package com.plr.longnbtkiller;
 
-import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.IExtensionPoint;
+import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-import org.slf4j.Logger;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(LongNbtKiller.MODID)
 public class LongNbtKiller {
@@ -20,7 +20,7 @@ public class LongNbtKiller {
     private static int maxDepthForCompoundTag = Integer.MAX_VALUE;
     private static int maxDepthForListTag = Integer.MAX_VALUE;
     private static boolean removeByteBufTagLimit = true;
-    public static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     static {
         final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -33,8 +33,7 @@ public class LongNbtKiller {
     }
 
     public LongNbtKiller() {
-        ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class,
-                () -> new IExtensionPoint.DisplayTest(() -> "", (a, b) -> true));
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> "", (a, b) -> true));
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CFG);
     }
 
@@ -53,7 +52,7 @@ public class LongNbtKiller {
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ModEventHandler {
         @SubscribeEvent
-        public static void onConfigLoad(ModConfigEvent event) {
+        public static void onConfigLoad(ModConfig.ModConfigEvent event) {
             maxDepthForCompoundTag = _maxDepthForCompoundTag.get();
             maxDepthForListTag = _maxDepthForListTag.get();
             removeByteBufTagLimit = _removeByteBufTagLimit.get();
