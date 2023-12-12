@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.plr.longnbtkiller.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "longnbtkiller.refmap.json",
+  "mixins": [
+    "MixinCompoundTag",
+    "MixinFriendlyByteBuf",
+    "MixinListTag"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
