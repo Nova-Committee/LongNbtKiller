@@ -22,8 +22,8 @@ public class LongNbtKiller {
         CFG = builder.build();
     }
 
-    public LongNbtKiller() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CFG);
+    public LongNbtKiller(ModLoadingContext ctx) {
+        ctx.registerConfig(ModConfig.Type.COMMON, CFG);
     }
 
     public static boolean shouldRemoveByteBufTagLimit() {

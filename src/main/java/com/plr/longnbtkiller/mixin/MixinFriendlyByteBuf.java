@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(FriendlyByteBuf.class)
 public abstract class MixinFriendlyByteBuf {
-    @Redirect(method = "readNbt()Lnet/minecraft/nbt/CompoundTag;", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtAccounter;create(J)Lnet/minecraft/nbt/NbtAccounter;"))
-    private NbtAccounter inject$readNbt(long l) {
+    @Redirect(method = "readNbt(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/nbt/CompoundTag;", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtAccounter;create(J)Lnet/minecraft/nbt/NbtAccounter;"))
+    private static NbtAccounter inject$readNbt(long l) {
         return LongNbtKiller.shouldRemoveByteBufTagLimit() ? NbtAccounter.create(l) : NbtAccounter.unlimitedHeap();
     }
 }

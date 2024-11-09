@@ -8,8 +8,6 @@
     "MixinFriendlyByteBuf",
     "MixinNbtAccounter"
   ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
   }
