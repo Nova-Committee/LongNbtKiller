@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.4.1'
+    id 'fabric-loom' version '1.11.+'
     id 'maven-publish'
 }
 
@@ -47,12 +47,15 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
+base {
+    archivesName = project.archives_base_name
+}
+
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
-    archivesBaseName = project.archives_base_name
 }
 
 // configure the maven publication
