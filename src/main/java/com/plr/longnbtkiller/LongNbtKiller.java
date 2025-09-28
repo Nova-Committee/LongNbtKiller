@@ -11,31 +11,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 @Mod(LongNbtKiller.MODID)
 public class LongNbtKiller {
     public static final String MODID = "longnbtkiller";
-    private static final ModConfigSpec CFG;
-    private static final ModConfigSpec.BooleanValue _removeByteBufTagLimit;
-    private static boolean removeByteBufTagLimit = true;
 
-    static {
-        final ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
-        builder.comment("LongNbtKiller Config").push("depth");
-        _removeByteBufTagLimit = builder.define("removeByteBufTagLimit", true);
-        builder.pop();
-        CFG = builder.build();
-    }
-
-    public LongNbtKiller(ModContainer container) {
-        container.registerConfig(ModConfig.Type.COMMON, CFG);
-    }
-
-    public static boolean shouldRemoveByteBufTagLimit() {
-        return removeByteBufTagLimit;
-    }
-
-    @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
-    public static class ModEventHandler {
-        @SubscribeEvent
-        public static void onConfigLoad(ModConfigEvent event) {
-            removeByteBufTagLimit = _removeByteBufTagLimit.get();
-        }
-    }
+    //public LongNbtKiller(ModContainer container) {
+    //}
 }

@@ -1,6 +1,5 @@
 package com.plr.longnbtkiller.mixin;
 
-import com.plr.longnbtkiller.LongNbtKiller;
 import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.network.FriendlyByteBuf;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +16,6 @@ public abstract class MixinFriendlyByteBuf {
             )
     )
     private static NbtAccounter inject$readNbt(long pQuota) {
-        return LongNbtKiller.shouldRemoveByteBufTagLimit() ? NbtAccounter.create(pQuota) : NbtAccounter.unlimitedHeap();
+        return NbtAccounter.unlimitedHeap();
     }
 }
