@@ -45,7 +45,8 @@ abstract class MinecraftServerMixin {
         PlayerList players = getPlayerList();
         if (players.getPlayerCount() > 0) {
             players.broadcastSystemMessage(Component.translatableWithFallback("longnbtkiller.warning.deep_nbt",
-                    "[Long NBT Killer] This world contains NBT nested beyond 512 levels. Check the server log for its location."),
+                    "[Long NBT Killer] This world contains NBT nested beyond 512 levels. "
+                            + "Server admins, please check the server log to locate it."),
                     false);
             longnbtkiller$warningSent = true;
             longnbtkiller$ticksSinceWarning = 0;

@@ -1,3 +1,3 @@
 {
-  "longnbtkiller.warning.deep_nbt": "[Long NBT Killer] 当前世界发现嵌套超过 512 层的 NBT。请查看服务端日志定位。"
+  "longnbtkiller.warning.deep_nbt": "[Long NBT Killer] 当前世界发现嵌套超过 512 层的 NBT。请服务器管理员查看服务端日志定位。"
 }
