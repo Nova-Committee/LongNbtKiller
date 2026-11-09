@@ -1,0 +1,27 @@
+license = "Nova Relay License 1.0"
+issueTrackerURL = "https://github.com/Nova-Committee/LongNbtKiller/issues"
+
+[[mods]]
+modId = "longnbtkiller"
+version = "${version}"
+displayName = "Long NBT Killer"
+displayURL = "https://github.com/Nova-Committee/LongNbtKiller"
+authors = "Tapio"
+description = "Locate excessively nested NBT in Minecraft saves."
+
+[[mixins]]
+config = "longnbtkiller.mixins.json"
+
+[[dependencies.longnbtkiller]]
+modId = "neoforge"
+type = "required"
+versionRange = "[${neoForge},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.longnbtkiller]]
+modId = "minecraft"
+type = "required"
+versionRange = "[${minecraft}]"
+ordering = "NONE"
+side = "BOTH"

@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8.7",
+  "package": "com.plr.longnbtkiller.mixin",
+  "compatibilityLevel": "JAVA_${java}",
+  "mixins": [
+    "MinecraftServerMixin",
+    "NbtAccounterMixin",
+    "NbtIoMixin",
+    "RegionFileStorageMixin",
+    "SavedDataStorageMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

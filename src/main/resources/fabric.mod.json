@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "longnbtkiller",
+  "version": "${version}",
+  "name": "Long NBT Killer",
+  "description": "Locate excessively nested NBT in Minecraft saves.",
+  "authors": ["Tapio"],
+  "contact": {
+    "sources": "https://github.com/Nova-Committee/LongNbtKiller",
+    "issues": "https://github.com/Nova-Committee/LongNbtKiller/issues"
+  },
+  "license": "Nova-Relay-License-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.plr.longnbtkiller.LongNbtKiller"]
+  },
+  "mixins": ["longnbtkiller.mixins.json"],
+  "depends": {
+    "fabricloader": ">=${fabricLoader}",
+    "forgeconfigapiport": ">=${forgeConfigApiPort}",
+    "minecraft": "${minecraft}",
+    "java": ">=${java}"
+  }
+}

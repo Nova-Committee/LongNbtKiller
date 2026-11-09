@@ -1,0 +1,3 @@
+{
+  "longnbtkiller.warning.deep_nbt": "[Long NBT Killer] This world contains NBT nested beyond 512 levels. Check the server log for its location."
+}
